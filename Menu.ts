@@ -1,55 +1,74 @@
 import readlinesync = require("readline-sync")
 import { colors } from "./src/util/Colors"
 
-let opcao: number;
+import { Conta } from "./src/model/Conta";
 
-do {
+export function main() {
 
-    chamarMenu()
-    opcao = readlinesync.questionInt()
+    let opcao: number;
 
-    if (opcao >= 1 && opcao <= 9) {
+    //Cria novas instâncias (Objetos) da Classe Conta
+    const c1 = new Conta(1, 123, 1, "Gustavo", 100000);
+    c1.visualizar();
+    //Saque
+    console.log(c1.sacar(200000.00));
+    c1.visualizar();
 
-        if (opcao === 9) {
-            about()
-            process.exit(0)
+    const c2 = new Conta(2,123,2,"Joice",10000);
+    c2.visualizar();
+    //Deposito
+    c2.depositar(100.00);
+    c2.visualizar();
+
+
+    do {
+
+        chamarMenu()
+        opcao = readlinesync.questionInt()
+
+        if (opcao >= 1 && opcao <= 9) {
+
+            if (opcao === 9) {
+                about()
+                process.exit(0)
+            }
+
+            if (opcao === 1) {
+                console.log("Criar Conta")
+            }
+
+            if (opcao === 2) {
+                console.log("Listar todas as Contas")
+            }
+
+            if (opcao === 3) {
+                console.log("Buscar Conta por Número")
+            }
+
+            if (opcao === 4) {
+                console.log("Atualizar Dados da Conta")
+            }
+
+            if (opcao === 5) {
+                console.log("Apagar Conta")
+            }
+
+            if (opcao === 6) {
+                console.log("Sacar")
+            }
+
+            if (opcao === 7) {
+                console.log("Depositar")
+            }
+
+            if (opcao === 8) {
+                console.log("Transferir Valores entre Contas")
+            }
+        } else {
+            console.log("Opção Inválida")
         }
-
-        if (opcao === 1) {
-            console.log("Criar Conta")
-        }
-
-        if (opcao === 2) {
-            console.log("Listar todas as Contas")
-        }
-
-        if (opcao === 3) {
-            console.log("Buscar Conta por Número")
-        }
-
-        if (opcao === 4) {
-            console.log("Atualizar Dados da Conta")
-        }
-
-        if (opcao === 5) {
-            console.log("Apagar Conta")
-        }
-
-        if (opcao === 6) {
-            console.log("Sacar")
-        }
-
-        if (opcao === 7) {
-            console.log("Depositar")
-        }
-
-        if (opcao === 8) {
-            console.log("Transferir Valores entre Contas")
-        }
-    } else {
-        console.log("Opção Inválida")
-    }
-} while (true)
+    } while (true)
+}
 
 function chamarMenu() {
     console.log(colors.bg.magentabright, colors.fg.blackstrong);
@@ -74,3 +93,5 @@ function about() {
     console.log("Obrigado Por usar o Banco Purple")
     console.log("Criado por Gustavo Teles")
 }
+
+main();

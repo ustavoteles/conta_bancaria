@@ -1,4 +1,4 @@
-export class Conta {
+export abstract class Conta {
 
     //Modelo de dados
     //BOAS PRÁTICAS: QUANDO O ATRIBUTO FOR PRIVADO COLOCAR O SINAL DE UNDERLINE_

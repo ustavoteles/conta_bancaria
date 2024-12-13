@@ -14,10 +14,7 @@ export class ContaPoupanca extends Conta {
     }
 
     public set aniversario(value: number) {
-        if (value < 1 || value > 31) {
-            throw new Error("O aniversário deve ser um número entre 1 e 31")
-        }
-        this._aniversario = value;
+        
     }
 
     public visualizar() {

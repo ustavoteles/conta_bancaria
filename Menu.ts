@@ -2,28 +2,24 @@ import readlinesync = require("readline-sync")
 import { colors } from "./src/util/Colors"
 import { ContaCorrente } from "./src/model/ContaCorrente";
 import { ContaPoupanca } from "./src/model/ContaPoupanca";
+import { ContaController } from "./src/controller/ContaController";
 
 export function main() {
 
-    let opcao: number;
+    let opcao, numero, agencia, tipo, saldo, limite, aniversario: number;
+    let titular: string;
+    const tipoContas = ['Conta Corrente', 'Conta Poupanca'];
 
+    //Criando um Objeto da classe Conta Controller
+    const contas = new ContaController();
 
+    //Novas Instâncias da Classe ContaCorrente (Objetos)
+    contas.cadastrarConta(new ContaCorrente(contas.gerarNumer(), 1234, 1, 'Amanda Magro', 1000000.00, 100000.00));
+    contas.cadastrarConta(new ContaCorrente(contas.gerarNumer(), 4578, 1, 'João da Silva', 1000.00, 100.00));
 
-    //Contas Correntes
-    const cc1 = new ContaCorrente(3, 789, 1, "Joaquim", 100000, 1000);
-    cc1.visualizar();
-
-    //Saque na conta corrente
-    cc1.sacar(100500);
-    cc1.visualizar();
-
-    //Depósito na conta corrente
-    cc1.depositar(2000);
-    cc1.visualizar();
-
-    //Conta Poupanca
-    const cp1 = new ContaPoupanca(1, 892, 2, "Vagner Love", 2000, -31)
-    cp1.visualizar();
+    // Novas Instâncias da Classe ContaPoupança (Objetos)
+    contas.cadastrarConta(new ContaPoupanca(contas.gerarNumer(), 5789, 2, "Geana Almeida", 10000, 10));
+    contas.cadastrarConta(new ContaPoupanca(contas.gerarNumer(), 5698, 2, "Jean Lima", 15000, 15));
 
     do {
 
@@ -38,38 +34,91 @@ export function main() {
             }
 
             if (opcao === 1) {
-                console.log("Criar Conta")
+                console.log(colors.fg.whitestrong, "\n\nCriar Conta\n\n",
+                    colors.reset)
+
+                console.log("Digite o número da Agência: ");
+                agencia = readlinesync.questionInt('');
+
+                console.log("Digite o Nome do Titular: ");
+                titular = readlinesync.question('');
+
+                console.log("Escolha o tipo da conta: ")
+                tipo = readlinesync.keyInSelect(tipoContas, "", { cancel: false }) + 1;
+
+                console.log("Digite o Saldo da conta: ");
+                saldo = readlinesync.questionFloat('');
+
+
+                if (tipo === 1) {
+                    console.log("Digite o Limite da Conta: ");
+                    limite = readlinesync.questionFloat("");
+                    contas.cadastrarConta(new ContaCorrente(contas.gerarNumer(), agencia, tipo, titular, saldo, limite));
+
+                }
+
+                if (tipo === 2) {
+                    do {
+                        console.log("Digite o Dia do Aniversário da Poupança: ");
+                        aniversario = readlinesync.questionInt("");
+                    } while (aniversario > 1 && aniversario > 31)
+                    contas.cadastrarConta(new ContaPoupanca(contas.gerarNumer(), agencia, tipo, titular, saldo, aniversario));
+
+                }
+                keyPress();
             }
 
             if (opcao === 2) {
-                console.log("Listar todas as Contas")
+                console.log(colors.fg.whitestrong, "Listar todas as Contas", colors.reset);
+
+                contas.listarTodas()
+                keyPress();
             }
 
             if (opcao === 3) {
-                console.log("Buscar Conta por Número")
+                console.log(colors.fg.whitestrong, "\n\nBuscar Conta por Número\n\n", colors.reset);
+
+                console.log("Digite o número da conta: ");
+                numero = readlinesync.questionInt('');
+
+                contas.procurarPorNumero(numero)
+
+                keyPress();
             }
 
             if (opcao === 4) {
-                console.log("Atualizar Dados da Conta")
+                console.log(colors.fg.whitestrong, "\n\nAtualizar Dados da Conta\n\n", colors.reset);
+
+                keyPress();
             }
 
             if (opcao === 5) {
-                console.log("Apagar Conta")
+                console.log(colors.fg.whitestrong, "\n\nApagar Conta\n\n", colors.reset);
+
+                keyPress();
             }
 
             if (opcao === 6) {
-                console.log("Sacar")
+                console.log(colors.fg.whitestrong, "\n\nSacar\n\n", colors.reset);
+
+                keyPress();
             }
 
             if (opcao === 7) {
-                console.log("Depositar")
+                console.log(colors.fg.whitestrong, "\n\nDepositar\n\n", colors.reset);;
+
+                keyPress();
             }
 
             if (opcao === 8) {
-                console.log("Transferir Valores entre Contas")
+                console.log("Transferir Valores entre Contas");
+
+                keyPress();
             }
         } else {
-            console.log("Opção Inválida")
+            console.log("Opção Inválida");
+
+            keyPress();
         }
     } while (true)
 }
@@ -93,6 +142,11 @@ function chamarMenu() {
 }
 
 
+function keyPress(): void {
+    console.log(colors.reset, "");
+    console.log("\nPressione enter para continuar...");
+    readlinesync.prompt();
+}
 function about() {
     console.log("Obrigado Por usar o Banco Purple")
     console.log("Criado por Gustavo Teles")

@@ -58,10 +58,8 @@ export function main() {
                 }
 
                 if (tipo === 2) {
-                    do {
-                        console.log("Digite o Dia do Aniversário da Poupança: ");
-                        aniversario = readlinesync.questionInt("");
-                    } while (aniversario > 1 && aniversario > 31)
+                    console.log("Digite o Dia do Aniversário da Poupança: ");
+                    aniversario = readlinesync.questionInt("");
                     contas.cadastrarConta(new ContaPoupanca(contas.gerarNumer(), agencia, tipo, titular, saldo, aniversario));
 
                 }

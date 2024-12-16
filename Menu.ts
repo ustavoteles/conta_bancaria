@@ -15,7 +15,8 @@ export function main() {
 
     //Novas Instâncias da Classe ContaCorrente (Objetos)
     contas.cadastrarConta(new ContaCorrente(contas.gerarNumer(), 1234, 1, 'Amanda Magro', 1000000.00, 100000.00));
-    contas.cadastrarConta(new ContaCorrente(contas.gerarNumer(), 4578, 1, 'João da Silva', 1000.00, 100.00));
+    contas.cadastrarConta(new ContaCorrente(contas.gerarNumer(), 4578, 1, 'Joao da Silva', 1000.00, 100.00));
+    contas.cadastrarConta(new ContaCorrente(contas.gerarNumer(), 4578, 1, 'Joao Teles', 1000.00, 100.00));
 
     // Novas Instâncias da Classe ContaPoupança (Objetos)
     contas.cadastrarConta(new ContaPoupanca(contas.gerarNumer(), 5789, 2, "Geana Almeida", 10000, 10));
@@ -26,9 +27,9 @@ export function main() {
         chamarMenu()
         opcao = readlinesync.questionInt()
 
-        if (opcao >= 1 && opcao <= 9) {
+        if (opcao >= 0 && opcao <= 9) {
 
-            if (opcao === 9) {
+            if (opcao === 0) {
                 about()
                 process.exit(0)
             }
@@ -166,7 +167,7 @@ export function main() {
             }
 
             if (opcao === 8) {
-                console.log("Transferência entre Contas");
+                console.log(colors.fg.whitestrong, "\n Transferência entre Contas\n\n", colors.reset);
 
                 console.log("Digite o número da conta de origem: ");
                 numero = readlinesync.questionInt('');
@@ -177,7 +178,17 @@ export function main() {
                 console.log("Digite o valor do Transferência: ");
                 valor = readlinesync.questionFloat('');
 
-                contas.transferir(numero, numeroDestino, valor)
+                contas.transferir(numero, numeroDestino, valor);
+
+                keyPress();
+            }
+            if (opcao === 9) {
+                console.log(colors.fg.whitestrong, "\n\nConsulta pelo Titular\n\n", colors.reset);
+                console.log("\n Digite o Nome do Titular: ");
+                titular = readlinesync.question("")
+
+                contas.procurarPorTitular(titular);
+
                 keyPress();
             }
         } else {
@@ -201,7 +212,9 @@ function chamarMenu() {
     console.log("    ║          6- Sacar                                  ║");
     console.log("    ║          7- Depositar                              ║");
     console.log("    ║          8- Transferir valores entre Contas        ║");
-    console.log("    ║          9- Sair                                   ║");
+    console.log("    ║          8- Buscar conta por Titular               ║");
+    console.log("    ║          9- Buscar pelo nome do Titular            ║");
+    console.log("    ║          0- Sair                                   ║");
     console.log("    ╚════════════════════════════════════════════════════╝");
     console.log("Digite a opção desejada: ", colors.reset);
 }

@@ -6,7 +6,7 @@ import { ContaController } from "./src/controller/ContaController";
 
 export function main() {
 
-    let opcao, numero, agencia, tipo, saldo, limite, aniversario: number;
+    let opcao, numero, agencia, tipo, saldo, limite, aniversario, numeroDestino, valor: number;
     let titular: string;
     const tipoContas = ['Conta Corrente', 'Conta Poupanca'];
 
@@ -137,20 +137,47 @@ export function main() {
             }
 
             if (opcao === 6) {
-                console.log(colors.fg.whitestrong, "\n\nSacar\n\n", colors.reset);
+                console.log(colors.fg.whitestrong, "\n\Saque\n\n", colors.reset);
+
+                console.log("Digite o número da conta: ");
+                numero = readlinesync.questionInt('');
+
+                console.log("Digite o valor do Saque: ");
+                valor = readlinesync.questionFloat('');
+
+                contas.sacar(numero, valor)
 
                 keyPress();
             }
 
             if (opcao === 7) {
-                console.log(colors.fg.whitestrong, "\n\nDepositar\n\n", colors.reset);;
+                console.log(colors.fg.whitestrong, "\n\Depósito\n\n", colors.reset);
+
+                console.log("Digite o número da conta: ");
+                numero = readlinesync.questionInt('');
+
+                console.log("Digite o valor do Depósito: ");
+                valor = readlinesync.questionFloat('');
+
+                contas.depositar(numero, valor);
+
 
                 keyPress();
             }
 
             if (opcao === 8) {
-                console.log("Transferir Valores entre Contas");
+                console.log("Transferência entre Contas");
 
+                console.log("Digite o número da conta de origem: ");
+                numero = readlinesync.questionInt('');
+
+                console.log("Digite o número da conta de destino: ");
+                numeroDestino = readlinesync.questionInt('');
+
+                console.log("Digite o valor do Transferência: ");
+                valor = readlinesync.questionFloat('');
+
+                contas.transferir(numero, numeroDestino, valor)
                 keyPress();
             }
         } else {

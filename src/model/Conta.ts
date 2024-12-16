@@ -87,7 +87,7 @@ export abstract class Conta {
 
         switch (this._tipo) {
             case 1:
-                tipo = "Conta Poupança";
+                tipo = "Conta Corrente";
 
                 break;
 

@@ -87,11 +87,51 @@ export function main() {
             if (opcao === 4) {
                 console.log(colors.fg.whitestrong, "\n\nAtualizar Dados da Conta\n\n", colors.reset);
 
+                console.log("Digite o número da conta: ");
+                numero = readlinesync.questionInt('');
+
+                let conta = contas.buscarNoArray(numero);
+
+                if (conta !== null) {
+
+                    console.log("Digite o número da Agência: ");
+                    agencia = readlinesync.questionInt('');
+
+                    console.log("Digite o Nome do Titular: ");
+                    titular = readlinesync.question('');
+
+                    console.log("Digite o novo Saldo da conta: ");
+                    saldo = readlinesync.questionFloat('');
+
+
+                    //atenção! tipo=conta.tipo
+                    tipo = conta.tipo;
+
+                    if (tipo === 1) {
+                        console.log("Digite o novo Limite da Conta: ");
+                        limite = readlinesync.questionFloat("");
+                        contas.atualizarConta(new ContaCorrente(numero, agencia, tipo, titular, saldo, limite));
+
+                    }
+
+                    if (tipo === 2) {
+                        console.log("Digite o novo Dia do Aniversário da Poupança: ");
+                        aniversario = readlinesync.questionInt("");
+                        contas.atualizarConta(new ContaPoupanca(numero, agencia, tipo, titular, saldo, aniversario));
+
+                    }
+                } else {
+                    console.log("Conta não encontrada!");
+                }
                 keyPress();
             }
 
             if (opcao === 5) {
                 console.log(colors.fg.whitestrong, "\n\nApagar Conta\n\n", colors.reset);
+                console.log("Digite o número da conta: ");
+                numero = readlinesync.questionInt('');
+
+                contas.deletarConta(numero);
 
                 keyPress();
             }

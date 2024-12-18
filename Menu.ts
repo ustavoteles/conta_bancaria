@@ -9,6 +9,7 @@ export function main() {
     let opcao, numero, agencia, tipo, saldo, limite, aniversario, numeroDestino, valor: number;
     let titular: string;
     const tipoContas = ['Conta Corrente', 'Conta Poupanca'];
+    chamarMenu()
 
     //Criando um Objeto da classe Conta Controller
     const contas = new ContaController();
@@ -225,9 +226,15 @@ function keyPress(): void {
     console.log("\nPressione enter para continuar...");
     readlinesync.prompt();
 }
+
 function about() {
+    console.log("\n*********************************************************")
     console.log("Obrigado Por usar o Banco Purple")
-    console.log("Criado por Gustavo Teles")
+    console.log("Desenvolvido por Gustavo Teles ")
+    console.log("Generation Brasil - Bootcamp JavaScript 06 ")
+    console.log("github.com/ustavoteles")
+    console.log("*********************************************************")
+
 }
 
 main();
